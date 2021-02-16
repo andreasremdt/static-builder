@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "marked": "^2.0.0",
-    "mustache": "^4.1.0"
+    "nunjucks": "^3.2.3"
   }
 }
