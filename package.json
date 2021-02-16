@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andreas Remdt",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "marked": "^2.0.0",
+    "mustache": "^4.1.0"
+  }
 }
