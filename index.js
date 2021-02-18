@@ -3,9 +3,9 @@ var path = require("path");
 var marked = require("marked");
 var nunjucks = require("nunjucks");
 var Parser = require("./parser");
-var { OUTPUT_FOLDER } = require("./config");
+var { OUTPUT_FOLDER, LAYOUT_FOLDER, INCLUDE_FOLDER } = require("./config");
 
-nunjucks.configure(["testing/includes", "testing/layouts"], {
+nunjucks.configure([LAYOUT_FOLDER, INCLUDE_FOLDER], {
   trimBlocks: true,
   lstripBlocks: true,
 });
