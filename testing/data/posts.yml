@@ -1,0 +1,8 @@
+title: Hello World
+description: Some lorem ipsum magic
+tags:
+  - name: tag1
+    description: This is a test
+images:
+  - 02.jpg
+  - 03.jpg

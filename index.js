@@ -1,51 +1,30 @@
-var fs = require("fs/promises");
+var fs = require("fs");
 var path = require("path");
 var marked = require("marked");
 var nunjucks = require("nunjucks");
-var getFileContent = require("./get-file-content");
-
-const TEMPLATE_FOLDER = path.join(__dirname, "testing");
-const OUTPUT_FOLDER = path.join(__dirname, "output");
-const VALID_EXTENSIONS = [".md", ".markdown", ".html"];
-const MARKDOWN_EXTENSIONS = [".md", ".markdown"];
+var Parser = require("./parser");
+var { OUTPUT_FOLDER } = require("./config");
 
 nunjucks.configure(["testing/includes", "testing/layouts"], {
   trimBlocks: true,
   lstripBlocks: true,
 });
 
-(async () => {
-  var files = await fs.readdir(TEMPLATE_FOLDER);
-  var pages = [];
+var parser = new Parser();
 
-  for (let file of files) {
-    var stat = await fs.lstat(path.join(TEMPLATE_FOLDER, file));
+parser.getPages().forEach((page) => {
+  var content = page.content;
 
-    if (stat.isFile() && VALID_EXTENSIONS.includes(path.extname(file))) {
-      pages.push(file);
-    }
+  if (page.type == ".md" || page.type == ".markdown") {
+    content = marked(page.content);
   }
 
-  for (let page of pages) {
-    var [content, meta] = await getFileContent(page);
-
-    if (MARKDOWN_EXTENSIONS.includes(path.extname(page))) {
-      page = page.replace(/.(md|markdown)$/, ".html");
-
-      content = marked(content);
-    }
-
-    try {
-      content = nunjucks.renderString(content, meta?.data);
-    } catch (ex) {
-      var stack = ex.message.split(/\n/g);
-      return console.error(
-        `Could not create \`${page}\`, ${stack[stack.length - 1].slice(
-          9
-        )}. This file will be skipped.`
-      );
-    }
-
-    await fs.writeFile(path.join(OUTPUT_FOLDER, page), content);
+  try {
+    fs.writeFileSync(
+      path.join(OUTPUT_FOLDER, page.name + ".html"),
+      nunjucks.renderString(content, page?.data)
+    );
+  } catch (ex) {
+    console.error(ex.message);
   }
-})().catch(console.error);
+});
