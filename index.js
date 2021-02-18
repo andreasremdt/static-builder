@@ -1,7 +1,8 @@
-var fs = require("fs").promises;
+var fs = require("fs/promises");
 var path = require("path");
 var marked = require("marked");
 var nunjucks = require("nunjucks");
+var getFileContent = require("./get-file-content");
 
 const TEMPLATE_FOLDER = path.join(__dirname, "testing");
 const OUTPUT_FOLDER = path.join(__dirname, "output");
@@ -26,15 +27,16 @@ nunjucks.configure(["testing/includes", "testing/layouts"], {
   }
 
   for (let page of pages) {
-    var content = await fs.readFile(path.join(TEMPLATE_FOLDER, page), "utf-8");
+    var [content, meta] = await getFileContent(page);
 
     if (MARKDOWN_EXTENSIONS.includes(path.extname(page))) {
       page = page.replace(/.(md|markdown)$/, ".html");
+
       content = marked(content);
     }
 
     try {
-      content = nunjucks.renderString(content);
+      content = nunjucks.renderString(content, meta?.data);
     } catch (ex) {
       var stack = ex.message.split(/\n/g);
       return console.error(

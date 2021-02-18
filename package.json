@@ -9,6 +9,7 @@
   "author": "Andreas Remdt",
   "license": "MIT",
   "dependencies": {
+    "gray-matter": "^4.0.2",
     "marked": "^2.0.0",
     "nunjucks": "^3.2.3"
   }
