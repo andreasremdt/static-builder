@@ -1,3 +1,20 @@
 #!/usr/bin/env node
 
-require("../");
+var { build, clean } = require("../");
+var [, , command] = process.argv;
+
+switch (command) {
+  case "build":
+    build();
+
+    break;
+  case "clean":
+    let error = clean();
+
+    if (!error) console.log("Output directory cleaned.");
+
+    break;
+  default:
+    console.error(`Unkown command "${command}".`);
+    process.exit(1);
+}

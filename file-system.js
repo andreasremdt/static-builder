@@ -1,4 +1,5 @@
 var fs = require("fs");
+var path = require("path");
 const { OUTPUT_FOLDER } = require("./config");
 
 class FileSystem {
@@ -10,7 +11,15 @@ class FileSystem {
 
       fs.mkdirSync(OUTPUT_FOLDER);
     } catch (ex) {
-      return ex;
+      return true;
+    }
+  }
+
+  createPage(name, content) {
+    try {
+      fs.writeFileSync(path.join(OUTPUT_FOLDER, name), content);
+    } catch (ex) {
+      return true;
     }
   }
 }

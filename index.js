@@ -1,10 +1,8 @@
-var fs = require("fs");
-var path = require("path");
 var marked = require("marked");
 var nunjucks = require("nunjucks");
 var Parser = require("./parser");
 var FileSystem = require("./file-system");
-var { OUTPUT_FOLDER, LAYOUT_FOLDER, INCLUDE_FOLDER } = require("./config");
+var { LAYOUT_FOLDER, INCLUDE_FOLDER } = require("./config");
 
 nunjucks.configure([LAYOUT_FOLDER, INCLUDE_FOLDER], {
   trimBlocks: true,
@@ -14,23 +12,27 @@ nunjucks.configure([LAYOUT_FOLDER, INCLUDE_FOLDER], {
 var parser = new Parser();
 var fileSystem = new FileSystem();
 
-var error = fileSystem.prepareOutputFolder();
+function clean() {
+  return fileSystem.prepareOutputFolder();
+}
 
-if (!error) {
-  parser.getPages().forEach((page) => {
-    var content = page.content;
+function build() {
+  var error = fileSystem.prepareOutputFolder();
 
-    if (page.type == ".md" || page.type == ".markdown") {
-      content = marked(page.content);
-    }
+  if (!error) {
+    parser.getPages().forEach((page) => {
+      var content = page.content;
 
-    try {
-      fs.writeFileSync(
-        path.join(OUTPUT_FOLDER, page.name + ".html"),
+      if (page.type == ".md" || page.type == ".markdown") {
+        content = marked(page.content);
+      }
+
+      fileSystem.createPage(
+        page.name + ".html",
         nunjucks.renderString(content, page?.data)
       );
-    } catch (ex) {
-      console.error(ex.message);
-    }
-  });
+    });
+  }
 }
+
+module.exports = { build, clean };

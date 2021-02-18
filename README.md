@@ -10,5 +10,5 @@ _static-builder_ will be a tool similar to Jekyll or Hexo: to build static websi
   - ~~Use partials and layouts~~
 - ~~Create pages using either Markdown or HTML files~~
 - Create collections, e. g. for blogs or other data (Markdown or YAML)
-- Create an API (CLI) for usage
+- ~~Create an API (CLI) for usage~~
 - Make configurable
