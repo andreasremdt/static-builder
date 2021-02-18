@@ -19,6 +19,8 @@ function clean() {
 function build() {
   var error = fileSystem.prepareOutputFolder();
 
+  fileSystem.copyAssets();
+
   if (!error) {
     parser.getPages().forEach((page) => {
       var content = page.content;
