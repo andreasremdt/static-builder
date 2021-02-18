@@ -1,7 +1,7 @@
 var path = require("path");
 
 const ROOT = process.cwd();
-const OUTPUT_FOLDER = path.join(ROOT, "output");
+const OUTPUT_FOLDER = path.join(ROOT, "_site");
 const DATA_FOLDER = path.join(ROOT, "data");
 const PAGES_FOLDER = path.join(ROOT, "pages");
 const INCLUDE_FOLDER = path.join(ROOT, "includes");
