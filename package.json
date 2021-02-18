@@ -3,11 +3,27 @@
   "version": "0.0.1",
   "description": "A simple and fast static site builder",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Andreas Remdt",
+  "author": "Andreas Remdt <me@andreasremdt.com> (https://andreasremdt.com)",
+  "keywords": [
+    "static",
+    "website",
+    "generator"
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreasremdt/static-builder.git"
+  },
+  "bugs": {
+    "email": "me@andreasremdt.com",
+    "url": "https://github.com/andreasremdt/static-builder/issues"
+  },
   "dependencies": {
     "gray-matter": "^4.0.2",
     "marked": "^2.0.0",
