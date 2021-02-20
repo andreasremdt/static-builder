@@ -1,26 +1,14 @@
-var path = require("path");
+import path from "path";
 
-const ROOT = process.cwd();
-const OUTPUT_FOLDER = path.join(ROOT, "_site");
-const DATA_FOLDER = path.join(ROOT, "data");
-const PAGES_FOLDER = path.join(ROOT, "pages");
-const INCLUDE_FOLDER = path.join(ROOT, "includes");
-const LAYOUT_FOLDER = path.join(ROOT, "layouts");
-const ASSET_FOLDER = path.join(ROOT, "assets");
+export const ROOT = process.cwd();
+export const OUTPUT_FOLDER = path.join(ROOT, "_site");
+export const DATA_FOLDER = path.join(ROOT, "data");
+export const PAGES_FOLDER = path.join(ROOT, "pages");
+export const INCLUDE_FOLDER = path.join(ROOT, "includes");
+export const LAYOUT_FOLDER = path.join(ROOT, "layouts");
+export const ASSET_FOLDER = path.join(ROOT, "assets");
+export const COLLECTION_FOLDER = path.join(ROOT, "collections");
 
-const PAGE_EXTENSIONS = [".md", ".markdown", ".html"];
-const MARKDOWN_EXTENSIONS = [".md", ".markdown"];
-const YAML_EXTENSIONS = [".yml", ".yaml"];
-
-module.exports = {
-  ROOT,
-  DATA_FOLDER,
-  PAGES_FOLDER,
-  INCLUDE_FOLDER,
-  LAYOUT_FOLDER,
-  ASSET_FOLDER,
-  OUTPUT_FOLDER,
-  PAGE_EXTENSIONS,
-  MARKDOWN_EXTENSIONS,
-  YAML_EXTENSIONS,
-};
+export const PAGE_EXTENSIONS = [".md", ".markdown", ".html"];
+export const MARKDOWN_EXTENSIONS = [".md", ".markdown"];
+export const YAML_EXTENSIONS = [".yml", ".yaml"];
